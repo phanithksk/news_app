@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_structure/widgets/custom_appbar.dart';
+import 'package:news_app/widgets/custom_appbar.dart';
 import '../../../controller/notification_controller.dart';
 import '../../../core/utils/app_color.dart';
 
@@ -29,7 +29,9 @@ class NotiificatiionView extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'EN-REGULAR',
                           fontSize: context.isPhone ? 16 : 18,
-                          color: AppColor().black.withOpacity(0.5),
+                          color: Get.isDarkMode
+                              ? Colors.grey
+                              : AppColor().black.withOpacity(0.5),
                         ),
                       ),
                       const SizedBox(
@@ -39,7 +41,9 @@ class NotiificatiionView extends StatelessWidget {
                         child: Container(
                           height: 0.5,
                           width: double.infinity,
-                          color: AppColor().black.withOpacity(0.3),
+                          color: Get.isDarkMode
+                              ? Colors.grey
+                              : AppColor().black.withOpacity(0.3),
                         ),
                       )
                     ],
@@ -75,7 +79,9 @@ class NotiificatiionView extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     fontFamily: 'EN-BOLD',
                                     fontSize: context.isPhone ? 14 : 16,
-                                    color: AppColor().primaryColor,
+                                    color: Get.isDarkMode
+                                        ? Colors.white70
+                                        : AppColor().primaryColor,
                                   ),
                                 ),
                                 const SizedBox(
@@ -87,7 +93,9 @@ class NotiificatiionView extends StatelessWidget {
                                   style: TextStyle(
                                     fontFamily: 'EN-REGULAR',
                                     fontSize: context.isPhone ? 12 : 14,
-                                    color: AppColor().black.withOpacity(0.5),
+                                    color: Get.isDarkMode
+                                        ? Colors.grey.shade500
+                                        : AppColor().black.withOpacity(0.5),
                                   ),
                                 ),
                               ],

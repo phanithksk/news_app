@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_structure/widgets/custom_appbar.dart';
+import 'package:news_app/widgets/custom_appbar.dart';
 import '../../../controller/home_controller.dart';
 import '../../../core/utils/app_color.dart';
 import 'new_detail.dart';
@@ -14,36 +14,32 @@ class AllBreakingNewsView extends StatelessWidget {
     return Scaffold(
       appBar: customAppBar(title: "Breaking News", context: context),
       body: ListView(
-        padding: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(top: 10, bottom: 20),
         children: [
-          ...List.generate(
-            controller.aLLbreakingNews.length,
-            (index) => Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NewsDetailView(
-                        id: controller.aLLbreakingNews[index]["id"],
-                        image: controller.aLLbreakingNews[index]["image"],
-                        tile: controller.aLLbreakingNews[index]["title"],
-                        subscription: controller.aLLbreakingNews[index]
-                            ["subscribe"],
-                        time: controller.aLLbreakingNews[index]["time"],
-                        view: controller.aLLbreakingNews[index]["view"],
-                        description: controller.aLLbreakingNews[index]["title"],
-                        profileImage: controller.aLLbreakingNews[index]
-                            ["profile"],
-                        profileName: controller.aLLbreakingNews[index]
-                            ["profile_name"],
-                      ),
+          ...controller.aLLbreakingNews.map(
+            (e) => GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NewsDetailView(
+                      id: e["id"],
+                      image: e["image"],
+                      tile: e["title"],
+                      subscription: e["subscribe"],
+                      time: e["time"],
+                      view: e["view"],
+                      description: e["title"],
+                      profileImage: e["profile"],
+                      profileName: e["profile_name"],
                     ),
-                  );
-                },
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 5),
                 child: Container(
-                  color: Colors.blueGrey.shade50.withOpacity(0.5),
+                  color: Theme.of(context).cardColor,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 10),
@@ -54,14 +50,16 @@ class AllBreakingNewsView extends StatelessWidget {
                           child: Column(
                             children: [
                               Text(
-                                controller.aLLbreakingNews[index]["title"],
+                                e["title"],
                                 maxLines: 3,
                                 style: TextStyle(
                                   height: 1.5,
                                   overflow: TextOverflow.ellipsis,
                                   fontFamily: 'EN-BOLD',
                                   fontSize: context.isPhone ? 16 : 18,
-                                  color: AppColor().primaryColor,
+                                  color: Get.isDarkMode
+                                      ? AppColor().white.withOpacity(0.8)
+                                      : AppColor().primaryColor,
                                 ),
                               ),
                               const SizedBox(
@@ -72,23 +70,23 @@ class AllBreakingNewsView extends StatelessWidget {
                                   CircleAvatar(
                                     radius: 10,
                                     backgroundImage: NetworkImage(
-                                      controller.aLLbreakingNews[index]
-                                          ["profile"],
+                                      e["profile"],
                                     ),
                                   ),
                                   const SizedBox(
                                     width: 10,
                                   ),
                                   Text(
-                                    controller.aLLbreakingNews[index]
-                                        ["profile_name"],
+                                    e["profile_name"],
                                     maxLines: 3,
                                     style: TextStyle(
                                       height: 1.5,
                                       overflow: TextOverflow.ellipsis,
                                       fontFamily: 'EN-BOLD',
                                       fontSize: context.isPhone ? 13 : 18,
-                                      color: AppColor().black.withOpacity(0.6),
+                                      color: Get.isDarkMode
+                                          ? Colors.white70
+                                          : AppColor().black.withOpacity(0.6),
                                     ),
                                   ),
                                 ],
@@ -98,15 +96,16 @@ class AllBreakingNewsView extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Text(
-                                      controller.aLLbreakingNews[index]["date"],
+                                      e["date"],
                                       maxLines: 3,
                                       style: TextStyle(
                                         height: 1.5,
                                         overflow: TextOverflow.ellipsis,
                                         fontFamily: 'EN-REGULAR',
                                         fontSize: context.isPhone ? 13 : 18,
-                                        color:
-                                            AppColor().black.withOpacity(0.5),
+                                        color: Get.isDarkMode
+                                            ? Colors.white70
+                                            : AppColor().black.withOpacity(0.5),
                                       ),
                                     ),
                                     const SizedBox(
@@ -118,16 +117,17 @@ class AllBreakingNewsView extends StatelessWidget {
                                           Icon(
                                             Icons.remove_red_eye_outlined,
                                             size: 18,
-                                            color: AppColor()
-                                                .black
-                                                .withOpacity(0.6),
+                                            color: Get.isDarkMode
+                                                ? Colors.white70
+                                                : AppColor()
+                                                    .black
+                                                    .withOpacity(0.6),
                                           ),
                                           const SizedBox(
                                             width: 5,
                                           ),
                                           Text(
-                                            controller.aLLbreakingNews[index]
-                                                ["view"],
+                                            e["view"],
                                             maxLines: 3,
                                             style: TextStyle(
                                               height: 1.5,
@@ -135,9 +135,11 @@ class AllBreakingNewsView extends StatelessWidget {
                                               fontFamily: 'EN-REGULAR',
                                               fontSize:
                                                   context.isPhone ? 13 : 18,
-                                              color: AppColor()
-                                                  .black
-                                                  .withOpacity(0.5),
+                                              color: Get.isDarkMode
+                                                  ? Colors.white70
+                                                  : AppColor()
+                                                      .black
+                                                      .withOpacity(0.5),
                                             ),
                                           ),
                                         ],
@@ -160,7 +162,7 @@ class AllBreakingNewsView extends StatelessWidget {
                           ),
                           clipBehavior: Clip.antiAlias,
                           child: Image.network(
-                            controller.aLLbreakingNews[index]["image"],
+                            e["image"],
                             fit: BoxFit.cover,
                             loadingBuilder: (context, child, loadingProgress) {
                               if (loadingProgress == null) {
@@ -181,7 +183,7 @@ class AllBreakingNewsView extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

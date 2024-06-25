@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_structure/core/services/themes_services.dart';
-import 'package:project_structure/route.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:news_app/core/services/themes_services.dart';
+import 'package:news_app/route.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
+  await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final onBoarding = prefs.getBool('onBoarding') ?? false;

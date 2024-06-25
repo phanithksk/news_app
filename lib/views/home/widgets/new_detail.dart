@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:project_structure/core/utils/app_color.dart';
+import 'package:news_app/core/utils/app_color.dart';
 
 class NewsDetailView extends StatefulWidget {
   final String image;
@@ -189,7 +189,7 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                     children: [
                       CircleAvatar(
                         radius: 20,
-                        backgroundImage: NetworkImage(widget.image),
+                        backgroundImage: NetworkImage(widget.profileImage),
                       ),
                       const SizedBox(
                         width: 10,
@@ -203,9 +203,9 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                               fontFamily: 'EN-BOLD',
                               fontWeight: FontWeight.w600,
                               fontSize: context.isPhone ? 12 : 14,
-                              color: AppColor().black.withOpacity(
-                                    0.7,
-                                  ),
+                              color: Get.isDarkMode
+                                  ? Colors.white70
+                                  : AppColor().black.withOpacity(0.7),
                             ),
                           ),
                           const SizedBox(
@@ -217,9 +217,9 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                               fontFamily: 'EN-REGULAR',
                               fontWeight: FontWeight.w500,
                               fontSize: context.isPhone ? 12 : 14,
-                              color: AppColor().black.withOpacity(
-                                    0.7,
-                                  ),
+                              color: Get.isDarkMode
+                                  ? Colors.white70
+                                  : AppColor().black.withOpacity(0.7),
                             ),
                           ),
                         ],
@@ -242,7 +242,9 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                             Icon(
                               Icons.timelapse_rounded,
                               size: 15,
-                              color: AppColor().black.withOpacity(0.7),
+                              color: Get.isDarkMode
+                                  ? Colors.white70
+                                  : AppColor().black.withOpacity(0.7),
                             ),
                             const SizedBox(
                               width: 2,
@@ -253,7 +255,9 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                                 height: 1.5,
                                 fontFamily: 'EN-REGULAR',
                                 fontSize: context.isPhone ? 12 : 14,
-                                color: AppColor().black.withOpacity(0.9),
+                                color: Get.isDarkMode
+                                    ? Colors.white70
+                                    : AppColor().black.withOpacity(0.9),
                               ),
                             ),
                           ],
@@ -273,7 +277,9 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                             Icon(
                               Icons.remove_red_eye_outlined,
                               size: 15,
-                              color: AppColor().black.withOpacity(0.7),
+                              color: Get.isDarkMode
+                                  ? Colors.white70
+                                  : AppColor().black.withOpacity(0.7),
                             ),
                             const SizedBox(
                               width: 2,
@@ -284,7 +290,9 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                                 height: 1.5,
                                 fontFamily: 'EN-REGULAR',
                                 fontSize: context.isPhone ? 12 : 14,
-                                color: AppColor().black.withOpacity(0.9),
+                                color: Get.isDarkMode
+                                    ? Colors.white70
+                                    : AppColor().black.withOpacity(0.9),
                               ),
                             ),
                           ],
@@ -318,13 +326,14 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                       fontFamily: 'EN-REGULAR',
                       fontWeight: FontWeight.w500,
                       fontSize: context.isPhone ? 16 : 20,
-                      color: Colors.black87,
+                      color: Get.isDarkMode ? Colors.white : Colors.black87,
                     ),
                   ),
                   const SizedBox(height: 10),
                   ...List.generate(
                     2,
                     (index) => Container(
+                      width: double.infinity,
                       margin: const EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -354,13 +363,14 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                       height: 1.5,
                       fontFamily: 'EN-REGULAR',
                       fontSize: context.isPhone ? 16 : 20,
-                      color: Colors.black87,
+                      color: Get.isDarkMode ? Colors.white : Colors.black87,
                     ),
                   ),
                   const SizedBox(height: 10),
                   ...List.generate(
                     2,
                     (index) => Container(
+                      width: double.infinity,
                       margin: const EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),

@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:project_structure/controller/onboding_controller.dart';
+import 'package:news_app/controller/onboding_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../core/utils/app_color.dart';
 import '../views/BottomNavigationBar/navigationbar.dart';
@@ -70,47 +70,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 clipBehavior: Clip.antiAlias,
-                child: Image.network(
+                child: Image.asset(
                   spController.iteam[index],
-                  fit: context.isLandscape
-                      ? BoxFit.cover
-                      : context.isPhone
-                          ? BoxFit.fill
-                          : BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 0.5,
-                        color: AppColor().primaryColor,
-                      ),
-                    );
-                  },
-                  errorBuilder: (context, exception, error) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.error,
-                          color: Theme.of(context).hoverColor,
-                          size: 35,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          Get.locale == const Locale('km', 'KM')
-                              ? 'មិនមានការតភ្ជាប់អ៊ីនធឺណិត!'
-                              : 'No Internet Connection!',
-                          style: TextStyle(
-                            fontFamily: 'EN-REGULAR',
-                            fontSize: context.isPhone ? 13 : 16,
-                            color: Theme.of(context).hoverColor,
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -141,7 +103,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   style: TextStyle(
                     fontFamily: 'EN-REGULAR',
                     fontSize: context.isPhone ? 16 : 18,
-                    color: Colors.grey.shade600,
+                    color: Get.isDarkMode
+                        ? Colors.grey.shade300
+                        : Colors.grey.shade600,
                   ),
                 ),
                 SizedBox(
@@ -191,7 +155,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           style: TextStyle(
                             fontFamily: 'EN-REGULAR',
                             fontSize: 16,
-                            color: AppColor().primaryColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),

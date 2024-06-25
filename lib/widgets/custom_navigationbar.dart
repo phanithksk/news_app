@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_structure/core/utils/app_color.dart';
+import 'package:get/get.dart';
 
 customNavigationBar({
   final List<BottomNavigationBarItem>? items,
@@ -7,6 +7,7 @@ customNavigationBar({
   final Color? selectedItemColor,
   final Color? unselectedItemColor,
   final void Function(int)? onTap,
+  required BuildContext context,
 }) {
   return BottomNavigationBar(
     items: items ??
@@ -29,12 +30,12 @@ customNavigationBar({
           ),
         ],
     currentIndex: currentIndex,
-    selectedItemColor: selectedItemColor ?? AppColor().primaryColor,
-    unselectedItemColor: Colors.black54,
+    selectedItemColor: selectedItemColor ?? Theme.of(context).primaryColor,
+    unselectedItemColor: Get.isDarkMode ? Colors.white60 : Colors.black54,
     showUnselectedLabels: true,
     type: BottomNavigationBarType.fixed,
     selectedLabelStyle: TextStyle(
-      color: AppColor().primaryColor,
+      color: Theme.of(context).primaryColor,
       fontSize: 12,
       fontWeight: FontWeight.w600,
     ),

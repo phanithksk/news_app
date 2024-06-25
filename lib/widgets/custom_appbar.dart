@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:project_structure/core/utils/app_color.dart';
+import 'package:news_app/core/utils/app_color.dart';
 
 customAppBar({
   required String title,

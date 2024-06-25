@@ -3,10 +3,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_structure/controller/home_controller.dart';
-import 'package:project_structure/core/utils/app_color.dart';
-import 'package:project_structure/views/home/widgets/new_detail.dart';
-import 'package:project_structure/widgets/custome_textfield_search.dart';
+import 'package:news_app/controller/home_controller.dart';
+import 'package:news_app/core/utils/app_color.dart';
+import 'package:news_app/views/home/widgets/new_detail.dart';
+import 'package:news_app/widgets/custome_textfield_search.dart';
 import '../../controller/onboding_controller.dart';
 import 'widgets/all_news_view.dart';
 
@@ -44,7 +44,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 Get.toNamed("/notification");
               },
               child: CircleAvatar(
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: Get.isDarkMode
+                    ? AppColor().primaryColor.withOpacity(0.8)
+                    : AppColor().primaryColor,
                 radius: 25,
                 child: Icon(
                   Icons.notifications_none_rounded,
@@ -106,77 +108,74 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ),
 
             /// Items
-            items: List.generate(
-              homeController.aLLbreakingNews.length,
-              (index) => GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NewsDetailView(
-                        id: homeController.aLLbreakingNews[index]["id"],
-                        image: homeController.aLLbreakingNews[index]["image"],
-                        tile: homeController.aLLbreakingNews[index]["title"],
-                        subscription: homeController.aLLbreakingNews[index]
-                            ["subscribe"],
-                        time: homeController.aLLbreakingNews[index]["time"],
-                        view: homeController.aLLbreakingNews[index]["view"],
-                        description: homeController.aLLbreakingNews[index]
-                            ["title"],
-                             profileImage: homeController.aLLbreakingNews[index]
-                            ["profile"],
-                        profileName: homeController.aLLbreakingNews[index]
-                            ["profile_name"],
-                      ),
-                    ),
-                  );
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.network(
-                    homeController.aLLbreakingNews[index]["image"],
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      }
-                      return Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 0.5,
-                          color: Theme.of(context).primaryColor,
+            items: [
+              ...homeController.aLLbreakingNews.map(
+                (e) => GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NewsDetailView(
+                          id: e["id"],
+                          image: e["image"],
+                          tile: e["title"],
+                          subscription: e["subscribe"],
+                          time: e["time"],
+                          view: e["view"],
+                          description: e["title"],
+                          profileImage: e["profile"],
+                          profileName: e["profile_name"],
                         ),
-                      );
-                    },
-                    errorBuilder: (context, exception, error) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.error,
-                            color: Theme.of(context).hoverColor,
-                            size: 35,
+                      ),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: Image.network(
+                      e["image"],
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        }
+                        return Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 0.5,
+                            color: Theme.of(context).primaryColor,
                           ),
-                          const SizedBox(height: 10),
-                          Text(
-                            Get.locale == const Locale('km', 'KM')
-                                ? 'មិនមានការតភ្ជាប់អ៊ីនធឺណិត!'
-                                : 'No Internet Connection!',
-                            style: TextStyle(
-                              fontFamily: 'EN-REGULAR',
-                              fontSize: context.isPhone ? 13 : 16,
+                        );
+                      },
+                      errorBuilder: (context, exception, error) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.error,
                               color: Theme.of(context).hoverColor,
+                              size: 35,
                             ),
-                          ),
-                        ],
-                      );
-                    },
+                            const SizedBox(height: 10),
+                            Text(
+                              Get.locale == const Locale('km', 'KM')
+                                  ? 'មិនមានការតភ្ជាប់អ៊ីនធឺណិត!'
+                                  : 'No Internet Connection!',
+                              style: TextStyle(
+                                fontFamily: 'EN-REGULAR',
+                                fontSize: context.isPhone ? 13 : 16,
+                                color: Theme.of(context).hoverColor,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15),
@@ -189,7 +188,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 fontFamily: 'EN-REGULAR',
                 fontWeight: FontWeight.w500,
                 fontSize: context.isPhone ? 14 : 16,
-                color: Theme.of(context).hintColor,
+                color: Get.isDarkMode
+                    ? Colors.grey.shade300
+                    : Colors.grey.shade600,
               ),
               labelStyle: TextStyle(
                 fontFamily: 'EN-REGULAR',
@@ -209,7 +210,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         child: Text(
                           e['title'],
                           style: TextStyle(
-                            color: Theme.of(context).hoverColor,
                             fontSize: context.isPhone ? 16 : 18,
                             fontFamily: 'EN-REGULAR',
                           ),

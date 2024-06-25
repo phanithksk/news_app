@@ -12,10 +12,11 @@ customTextFieldSearch({
   EdgeInsetsGeometry? contentPadding,
   bool? isBorder = false,
   Color? fillColor,
+  BorderRadiusGeometry? borderRadius,
 }) {
   return Container(
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: borderRadius ?? BorderRadius.circular(12),
       boxShadow: Get.isDarkMode
           ? []
           : [

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_structure/core/utils/app_color.dart';
+import 'package:news_app/core/utils/app_color.dart';
 import '../../controller/discover_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../widgets/custome_textfield_search.dart';
@@ -44,7 +44,7 @@ class _DescoverViewState extends State<DescoverView>
                     fontFamily: 'EN-BOLD',
                     fontWeight: FontWeight.bold,
                     fontSize: context.isPhone ? 23 : 20,
-                    color: AppColor().primaryColor,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
                 const SizedBox(
@@ -57,7 +57,9 @@ class _DescoverViewState extends State<DescoverView>
                     fontFamily: 'EN-REGULAR',
                     fontWeight: FontWeight.w500,
                     fontSize: context.isPhone ? 14 : 16,
-                    color: AppColor().black.withOpacity(0.5),
+                    color: Get.isDarkMode
+                        ? Colors.white
+                        : AppColor().black.withOpacity(0.5),
                   ),
                 ),
                 const SizedBox(
@@ -72,7 +74,6 @@ class _DescoverViewState extends State<DescoverView>
                         controller: TextEditingController(),
                         hintText: 'Search News',
                         context: context,
-                        fillColor: Colors.grey.shade100,
                       ),
                     ),
                     Container(
@@ -112,7 +113,9 @@ class _DescoverViewState extends State<DescoverView>
                           fontFamily: 'EN-BOLD',
                           fontWeight: FontWeight.bold,
                           fontSize: context.isPhone ? 18 : 20,
-                          color: AppColor().primaryColor,
+                          color: Get.isDarkMode
+                              ? AppColor().white.withOpacity(0.7)
+                              : AppColor().primaryColor,
                         ),
                       ),
                       GestureDetector(
@@ -125,7 +128,7 @@ class _DescoverViewState extends State<DescoverView>
                             fontFamily: 'EN-REGULAR',
                             fontWeight: FontWeight.w500,
                             fontSize: context.isPhone ? 14 : 18,
-                            color: AppColor().primaryColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),
@@ -152,16 +155,19 @@ class _DescoverViewState extends State<DescoverView>
                               horizontal: 20,
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
                               borderRadius: BorderRadius.circular(10),
                               gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Colors.grey.shade100,
-                                  Colors.blue.shade50,
-                                ],
-                              ),
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Get.isDarkMode
+                                        ? const Color.fromARGB(255, 41, 74, 90)
+                                        : Colors.grey.shade100,
+                                    Get.isDarkMode
+                                        ? const Color.fromARGB(
+                                            255, 83, 104, 114)
+                                        : Colors.blue.shade50,
+                                  ]),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -198,14 +204,21 @@ class _DescoverViewState extends State<DescoverView>
                                   style: TextStyle(
                                     fontFamily: 'EN-BOLD',
                                     fontSize: context.isPhone ? 12 : 16,
-                                    color: AppColor().primaryColor,
+                                    color: Get.isDarkMode
+                                        ? AppColor().white.withOpacity(0.8)
+                                        : AppColor().primaryColor,
                                   ),
                                 ),
                                 Container(
                                   decoration: BoxDecoration(
                                     color: follow != false
-                                        ? Colors.black12.withOpacity(0.06)
-                                        : Colors.blue.shade100,
+                                        ? Get.isDarkMode
+                                            ? Colors.black12
+                                            : Colors.black12.withOpacity(0.06)
+                                        : Get.isDarkMode
+                                            ? const Color.fromARGB(
+                                                255, 26, 54, 75)
+                                            : Colors.blue.shade100,
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                   margin: const EdgeInsets.all(10),
@@ -219,7 +232,10 @@ class _DescoverViewState extends State<DescoverView>
                                     style: TextStyle(
                                       fontFamily: 'EN-BOLD',
                                       fontSize: context.isPhone ? 12 : 18,
-                                      color: AppColor().primaryColor,
+                                      color: Get.isDarkMode
+                                          ? const Color.fromARGB(
+                                              255, 25, 122, 182)
+                                          : AppColor().primaryColor,
                                     ),
                                   ),
                                 ),
@@ -232,7 +248,7 @@ class _DescoverViewState extends State<DescoverView>
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 25,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -241,12 +257,14 @@ class _DescoverViewState extends State<DescoverView>
                     style: TextStyle(
                       fontFamily: 'EN-BOLD',
                       fontSize: context.isPhone ? 20 : 22,
-                      color: AppColor().primaryColor,
+                      color: Get.isDarkMode
+                          ? AppColor().white.withOpacity(0.7)
+                          : AppColor().primaryColor,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: TabBar(
                     isScrollable: true,
                     controller: tabController,
@@ -256,13 +274,15 @@ class _DescoverViewState extends State<DescoverView>
                       fontFamily: 'EN-REGULAR',
                       fontWeight: FontWeight.w500,
                       fontSize: context.isPhone ? 14 : 16,
-                      color: Colors.grey.shade600,
+                      color: Get.isDarkMode
+                          ? Colors.grey.shade300
+                          : Colors.grey.shade600,
                     ),
                     labelStyle: TextStyle(
                       fontFamily: 'EN-REGULAR',
                       fontWeight: FontWeight.bold,
                       fontSize: context.isPhone ? 14 : 16,
-                      color: AppColor().primaryColor,
+                      color: Theme.of(context).primaryColor,
                     ),
                     tabAlignment: TabAlignment.start,
                     tabs: [

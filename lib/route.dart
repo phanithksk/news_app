@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:project_structure/views/home/home_screen.dart';
-import 'package:project_structure/views/home/widgets/notificatiion_viiew.dart';
-import 'package:project_structure/widgets/splash_screen.dart';
+import 'package:news_app/views/home/home_screen.dart';
+import 'package:news_app/views/home/widgets/notificatiion_viiew.dart';
+import 'package:news_app/widgets/splash_screen.dart';
 import 'views/BottomNavigationBar/navigationbar.dart';
 import 'views/discover/all_publisher_view.dart';
 import 'views/home/widgets/all_break_news.dart';

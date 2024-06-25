@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_structure/views/home/home_screen.dart';
-import 'package:project_structure/views/more/more.dart';
+import 'package:news_app/views/home/home_screen.dart';
+import 'package:news_app/views/more/more.dart';
 
 import '../views/discover/discover_view.dart';
 import '../views/save/save_view.dart';

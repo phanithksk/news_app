@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../core/utils/app_color.dart';
 
@@ -59,6 +60,8 @@ class CustomCardNews extends StatelessWidget {
                             ),
                           );
                         },
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.error),
                       ),
                     )
                   : const SizedBox.shrink(),
@@ -99,7 +102,7 @@ class CustomCardNews extends StatelessWidget {
                             fontFamily: 'EN-REGULAR',
                             fontSize: context.isPhone ? 13 : 18,
                             color: Get.isDarkMode
-                                ? Colors.grey.withOpacity(0.8)
+                                ? Colors.white60
                                 : AppColor().black.withOpacity(0.6),
                           ),
                         ),
@@ -116,7 +119,9 @@ class CustomCardNews extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               fontFamily: 'EN-REGULAR',
                               fontSize: context.isPhone ? 13 : 18,
-                              color: AppColor().black.withOpacity(0.5),
+                              color: Get.isDarkMode
+                                  ? Colors.white70
+                                  : AppColor().black.withOpacity(0.5),
                             ),
                           ),
                           const SizedBox(
@@ -128,7 +133,9 @@ class CustomCardNews extends StatelessWidget {
                                 Icon(
                                   Icons.remove_red_eye_outlined,
                                   size: 18,
-                                  color: AppColor().black.withOpacity(0.6),
+                                  color: Get.isDarkMode
+                                      ? Colors.white70
+                                      : AppColor().black.withOpacity(0.6),
                                 ),
                                 const SizedBox(
                                   width: 5,
@@ -140,7 +147,9 @@ class CustomCardNews extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     fontFamily: 'EN-REGULAR',
                                     fontSize: context.isPhone ? 13 : 18,
-                                    color: AppColor().black.withOpacity(0.5),
+                                    color: Get.isDarkMode
+                                        ? Colors.white70
+                                        : AppColor().black.withOpacity(0.5),
                                   ),
                                 ),
                               ],

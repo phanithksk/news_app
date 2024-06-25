@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_structure/controller/navigationbar_view_model.dart';
-import 'package:project_structure/widgets/custom_navigationbar.dart';
+import 'package:news_app/controller/navigationbar_view_model.dart';
+import 'package:news_app/widgets/custom_navigationbar.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
   const BottomNavigationBarScreen({super.key});
@@ -28,6 +28,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
         child: controller.screenWidget.elementAt(controller.selectedIndex),
       ),
       bottomNavigationBar: customNavigationBar(
+        context: context,
         currentIndex: controller.selectedIndex,
         onTap: _onItemTapped,
       ),

@@ -9,9 +9,9 @@ class AppColor {
   Color greylight = Colors.grey.shade700;
 
   // Dark
-  Color darkPrimaryColor = const Color(0xFF0B45A6);
+  Color darkPrimaryColor = const Color.fromARGB(255, 78, 122, 199);
   Color darkbackgroundColor = const Color(0xFF282828);
-  Color darkCard = const Color(0xFF3C4045);
+  Color darkCard = Color.fromARGB(255, 53, 58, 62);
   Color black = Colors.black;
   Color greyDark = Colors.white;
 }
