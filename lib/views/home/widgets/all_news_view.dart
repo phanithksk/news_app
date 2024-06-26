@@ -25,9 +25,10 @@ class AllNewsView extends StatelessWidget {
                       subscription: e["subscribe"],
                       time: e["time"],
                       view: e["view"],
-                      description: e["title"],
+                      description: e["description"],
                       profileImage: e["profile"],
                       profileName: e["profile_name"],
+                      albumImage: e["album_image"],
                     ),
                   ),
                 );

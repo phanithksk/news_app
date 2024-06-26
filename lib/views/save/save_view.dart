@@ -106,6 +106,7 @@ class SaveNewsView extends StatelessWidget {
                               description: e["description"],
                               profileImage: e["profile"],
                               profileName: e["profile_name"],
+                              albumImage: e["album_image"],
                             ),
                           ),
                         );

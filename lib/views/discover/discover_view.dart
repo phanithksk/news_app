@@ -197,6 +197,9 @@ class _DescoverViewState extends State<DescoverView>
                                         ),
                                       );
                                     },
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(Icons.error),
                                   ),
                                 ),
                                 Text(

@@ -117,6 +117,7 @@ class NotiificatiionView extends StatelessWidget {
                                 if (loadingProgress == null) {
                                   return child;
                                 }
+
                                 return Center(
                                   child: CircularProgressIndicator(
                                     strokeWidth: 0.5,
@@ -124,6 +125,8 @@ class NotiificatiionView extends StatelessWidget {
                                   ),
                                 );
                               },
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.error),
                             ),
                           )
                         ],

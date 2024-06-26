@@ -14,6 +14,7 @@ class NewsDetailView extends StatefulWidget {
   final String description;
   final String profileName;
   final String profileImage;
+  final List albumImage;
 
   const NewsDetailView({
     super.key,
@@ -26,6 +27,7 @@ class NewsDetailView extends StatefulWidget {
     required this.description,
     required this.profileName,
     required this.profileImage,
+    required this.albumImage,
   });
 
   @override
@@ -95,6 +97,8 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                       ),
                     );
                   },
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.error),
                 ),
               ),
               leading: ValueListenableBuilder<bool>(
@@ -330,17 +334,16 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  ...List.generate(
-                    2,
-                    (index) => Container(
+                  ...List.generate(widget.albumImage.length, (index) {
+                    return Container(
                       width: double.infinity,
-                      margin: const EdgeInsets.only(bottom: 10),
+                      margin: const EdgeInsets.only(bottom: 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                       ),
                       clipBehavior: Clip.antiAlias,
                       child: Image.network(
-                        widget.image,
+                        widget.albumImage[index].toString(),
                         fit: BoxFit.cover,
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) {
@@ -353,12 +356,14 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                             ),
                           );
                         },
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.error),
                       ),
-                    ),
-                  ),
+                    );
+                  }),
                   const SizedBox(height: 10),
                   Text(
-                    'In Flutter, you can use a NestedScrollView widget to create a scrollable view with multiple scrolling sections that can scroll independently of each other. This is commonly used when you have a header that should remain visible while the content below it scrolls. In this article, we are going to implement the NestedScrollView widget. A sample video is given below to get an idea about what we are going to do in this article.',
+                    widget.description,
                     style: TextStyle(
                       height: 1.5,
                       fontFamily: 'EN-REGULAR',
@@ -367,32 +372,6 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  ...List.generate(
-                    2,
-                    (index) => Container(
-                      width: double.infinity,
-                      margin: const EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: Image.network(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjJnvGDX3deYNPUW_Jm6nUjsQn1OmlGkZzww&s',
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) {
-                            return child;
-                          }
-                          return Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 0.5,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
                 ],
               ),
             )

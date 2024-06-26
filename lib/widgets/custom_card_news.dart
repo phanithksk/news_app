@@ -186,6 +186,8 @@ class CustomCardNews extends StatelessWidget {
                             ),
                           );
                         },
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.error),
                       ),
                     )
                   : const SizedBox.shrink()

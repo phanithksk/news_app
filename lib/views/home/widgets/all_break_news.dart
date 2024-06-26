@@ -29,9 +29,10 @@ class AllBreakingNewsView extends StatelessWidget {
                       subscription: e["subscribe"],
                       time: e["time"],
                       view: e["view"],
-                      description: e["title"],
+                      description: e["description"],
                       profileImage: e["profile"],
                       profileName: e["profile_name"],
+                      albumImage: e["album_image"],
                     ),
                   ),
                 );
@@ -175,6 +176,8 @@ class AllBreakingNewsView extends StatelessWidget {
                                 ),
                               );
                             },
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(Icons.error),
                           ),
                         )
                       ],

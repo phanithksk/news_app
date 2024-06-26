@@ -125,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           description: e["title"],
                           profileImage: e["profile"],
                           profileName: e["profile_name"],
+                          albumImage: e["album_image"],
                         ),
                       ),
                     );
