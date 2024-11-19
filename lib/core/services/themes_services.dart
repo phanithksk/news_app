@@ -10,7 +10,7 @@ class ThemeService {
   final lightTheme = ThemeData.light().copyWith(
     hoverColor: AppColor().black,
     primaryColor: AppColor().primaryColor,
-    backgroundColor: AppColor().backgroundColor,
+    scaffoldBackgroundColor: AppColor().backgroundColor,
     cardColor: AppColor().lightCard,
     hintColor: AppColor().greylight,
   );
@@ -19,7 +19,7 @@ class ThemeService {
   final darkTheme = ThemeData.dark().copyWith(
     hoverColor: AppColor().white,
     primaryColor: AppColor().darkPrimaryColor,
-    backgroundColor: AppColor().darkbackgroundColor,
+    scaffoldBackgroundColor: AppColor().darkbackgroundColor,
     cardColor: AppColor().darkCard,
     hintColor: AppColor().greyDark,
   );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/views/home/widgets/new_detail.dart';
 import '../../../widgets/custom_card_news.dart';
-import 'new_detail.dart';
 
 class AllNewsView extends StatelessWidget {
   final List data;
@@ -8,39 +8,35 @@ class AllNewsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       children: [
         ...data.map((e) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 5),
-            child: CustomCardNews(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NewsDetailView(
-                      id: e['id'],
-                      image: e['image'],
-                      tile: e["title"],
-                      subscription: e["subscribe"],
-                      time: e["time"],
-                      view: e["view"],
-                      description: e["description"],
-                      profileImage: e["profile"],
-                      profileName: e["profile_name"],
-                      albumImage: e["album_image"],
-                    ),
-                  ),
-                );
-              },
-              isleftImage: true,
-              title: e['title'],
-              date: e['date'],
-              image: e['image'],
-              profile: e['profile'],
-              profileName: e['profile_name'],
-              views: e['view'],
-            ),
+            child: data.isNotEmpty
+                ? CustomCardNews(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NewsDetailView(
+                            id: e.id,
+                            thumbnail: e.thumbnail,
+                          ),
+                        ),
+                      );
+                    },
+                    isleftImage: true,
+                    title: e.title,
+                    date: e.createdAt,
+                    image: e.thumbnail,
+                    profile: e.thumbnail,
+                    profileName: e.user,
+                    views: " 10",
+                  )
+                : Container(),
           );
         })
       ],

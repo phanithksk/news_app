@@ -18,13 +18,13 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   int currentIndex = 0;
-  CarouselController controller = CarouselController();
+  CarouselSliderController controller = CarouselSliderController();
   final spController = Get.put(OnBoardingController());
 
   @override
   void initState() {
     super.initState();
-    controller = CarouselController();
+    controller = CarouselSliderController();
   }
 
   @override
