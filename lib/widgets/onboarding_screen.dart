@@ -18,13 +18,12 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   int currentIndex = 0;
-  CarouselController controller = CarouselController();
+  final CarouselSliderController _controller = CarouselSliderController();
   final spController = Get.put(OnBoardingController());
 
   @override
   void initState() {
     super.initState();
-    controller = CarouselController();
   }
 
   @override
@@ -47,7 +46,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CarouselSlider(
-            carouselController: controller,
+            carouselController: _controller,
             options: CarouselOptions(
               autoPlay: false,
               enlargeCenterPage: true,
@@ -174,7 +173,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               ),
                             );
                           }
-                          controller.nextPage(
+                          _controller.nextPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.decelerate);
                         },
