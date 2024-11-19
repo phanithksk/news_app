@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:news_app/core/services/themes_services.dart';
 import 'package:news_app/controller/theme_controller.dart';
-import 'package:news_app/core/utils/app_color.dart';
+
 
 class DarkModeView extends GetView<DarkModeController> {
   @override
@@ -13,7 +13,7 @@ class DarkModeView extends GetView<DarkModeController> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Get.isDarkMode ? AppColor().darkCard : AppColor().white,
+      // color: Get.isDarkMode ? AppColor().darkCard : AppColor().white,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),

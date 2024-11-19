@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../core/utils/app_color.dart';
 
@@ -7,7 +6,7 @@ class CustomCardNews extends StatelessWidget {
   final String title;
   final String profile;
   final String profileName;
-  final String views;
+  final String? views;
   final String date;
   final String image;
   final bool? isleftImage;
@@ -22,7 +21,7 @@ class CustomCardNews extends StatelessWidget {
     this.onTap,
     required this.profile,
     required this.profileName,
-    required this.views,
+    this.views,
     this.isleftImage = false,
   });
 
@@ -70,11 +69,11 @@ class CustomCardNews extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      maxLines: 3,
+                      maxLines: 2,
                       style: TextStyle(
                         height: 1.5,
                         overflow: TextOverflow.ellipsis,
-                        fontFamily: 'EN-BOLD',
+                        fontFamily: 'KH-REGULAR',
                         fontSize: context.isPhone ? 16 : 18,
                         color: Theme.of(context).hoverColor,
                       ),
@@ -95,11 +94,11 @@ class CustomCardNews extends StatelessWidget {
                         ),
                         Text(
                           profileName,
-                          maxLines: 3,
+                          maxLines: 1,
                           style: TextStyle(
                             height: 1.5,
                             overflow: TextOverflow.ellipsis,
-                            fontFamily: 'EN-REGULAR',
+                            fontFamily: 'KH-REGULAR',
                             fontSize: context.isPhone ? 13 : 18,
                             color: Get.isDarkMode
                                 ? Colors.white60
@@ -114,10 +113,11 @@ class CustomCardNews extends StatelessWidget {
                         children: [
                           Text(
                             date,
+                            maxLines: 1,
                             style: TextStyle(
                               height: 1.5,
                               overflow: TextOverflow.ellipsis,
-                              fontFamily: 'EN-REGULAR',
+                              fontFamily: 'KH-REGULAR',
                               fontSize: context.isPhone ? 13 : 18,
                               color: Get.isDarkMode
                                   ? Colors.white70
@@ -127,34 +127,39 @@ class CustomCardNews extends StatelessWidget {
                           const SizedBox(
                             width: 20,
                           ),
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.remove_red_eye_outlined,
-                                  size: 18,
-                                  color: Get.isDarkMode
-                                      ? Colors.white70
-                                      : AppColor().black.withOpacity(0.6),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  views,
-                                  style: TextStyle(
-                                    height: 1.5,
-                                    overflow: TextOverflow.ellipsis,
-                                    fontFamily: 'EN-REGULAR',
-                                    fontSize: context.isPhone ? 13 : 18,
-                                    color: Get.isDarkMode
-                                        ? Colors.white70
-                                        : AppColor().black.withOpacity(0.5),
+                          views != null
+                              ? Expanded(
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.remove_red_eye_outlined,
+                                        size: 18,
+                                        color: Get.isDarkMode
+                                            ? Colors.white70
+                                            : AppColor().black.withOpacity(0.6),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        views ?? "",
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          height: 1.5,
+                                          overflow: TextOverflow.ellipsis,
+                                          fontFamily: 'KH-REGULAR',
+                                          fontSize: context.isPhone ? 13 : 18,
+                                          color: Get.isDarkMode
+                                              ? Colors.white70
+                                              : AppColor()
+                                                  .black
+                                                  .withOpacity(0.5),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
+                                )
+                              : SizedBox.shrink()
                         ],
                       ),
                     )

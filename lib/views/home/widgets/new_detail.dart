@@ -1,33 +1,19 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+import 'package:news_app/controller/home_controller.dart';
 import 'package:news_app/core/utils/app_color.dart';
 
 class NewsDetailView extends StatefulWidget {
-  final String image;
   final int id;
-  final String tile;
-  final String subscription;
-  final String time;
-  final String view;
-  final String description;
-  final String profileName;
-  final String profileImage;
-  final List albumImage;
+  final String thumbnail;
 
   const NewsDetailView({
     super.key,
-    required this.image,
     required this.id,
-    required this.tile,
-    required this.subscription,
-    required this.time,
-    required this.view,
-    required this.description,
-    required this.profileName,
-    required this.profileImage,
-    required this.albumImage,
+    required this.thumbnail,
   });
 
   @override
@@ -37,10 +23,12 @@ class NewsDetailView extends StatefulWidget {
 class _NewsDetailViewState extends State<NewsDetailView> {
   final ScrollController _scrollController = ScrollController();
   final ValueNotifier<bool> _isLeadingVisible = ValueNotifier(true);
-
+  final controller = Get.put(HomeController());
+  final staticAnchorKey = GlobalKey();
   @override
   void initState() {
     super.initState();
+    controller.getSingleNewsData(newID: widget.id);
     _scrollController.addListener(_scrollListener);
   }
 
@@ -64,6 +52,7 @@ class _NewsDetailViewState extends State<NewsDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    var item = controller.singleNewsData;
     return Scaffold(
       body: NestedScrollView(
         controller: _scrollController,
@@ -84,7 +73,7 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                 titlePadding: EdgeInsets.zero,
                 centerTitle: false,
                 background: Image.network(
-                  widget.image,
+                  widget.thumbnail,
                   fit: BoxFit.cover,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) {
@@ -184,197 +173,195 @@ class _NewsDetailViewState extends State<NewsDetailView> {
         body: ListView(
           padding: EdgeInsets.zero,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ...item.value.data.map((e) {
+              return Column(
                 children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 20,
-                        backgroundImage: NetworkImage(widget.profileImage),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.profileName,
-                            style: TextStyle(
-                              fontFamily: 'EN-BOLD',
-                              fontWeight: FontWeight.w600,
-                              fontSize: context.isPhone ? 12 : 14,
-                              color: Get.isDarkMode
-                                  ? Colors.white70
-                                  : AppColor().black.withOpacity(0.7),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            widget.subscription,
-                            style: TextStyle(
-                              fontFamily: 'EN-REGULAR',
-                              fontWeight: FontWeight.w500,
-                              fontSize: context.isPhone ? 12 : 14,
-                              color: Get.isDarkMode
-                                  ? Colors.white70
-                                  : AppColor().black.withOpacity(0.7),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: AppColor().black.withOpacity(0.05),
-                        ),
-                        padding: const EdgeInsets.all(5),
-                        child: Row(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
-                            Icon(
-                              Icons.timelapse_rounded,
-                              size: 15,
-                              color: Get.isDarkMode
-                                  ? Colors.white70
-                                  : AppColor().black.withOpacity(0.7),
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundImage: NetworkImage('${e.userProfile}'),
                             ),
                             const SizedBox(
-                              width: 2,
+                              width: 10,
                             ),
                             Text(
-                              widget.time,
+                              e.username,
                               style: TextStyle(
-                                height: 1.5,
-                                fontFamily: 'EN-REGULAR',
+                                fontFamily: 'KH-REGULAR',
+                                fontWeight: FontWeight.w600,
                                 fontSize: context.isPhone ? 12 : 14,
                                 color: Get.isDarkMode
                                     ? Colors.white70
-                                    : AppColor().black.withOpacity(0.9),
+                                    : AppColor().black.withOpacity(0.7),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: AppColor().black.withOpacity(0.05),
+                        const SizedBox(
+                          width: 10,
                         ),
-                        padding: const EdgeInsets.all(5),
-                        child: Row(
+                        Row(
                           children: [
-                            Icon(
-                              Icons.remove_red_eye_outlined,
-                              size: 15,
-                              color: Get.isDarkMode
-                                  ? Colors.white70
-                                  : AppColor().black.withOpacity(0.7),
-                            ),
-                            const SizedBox(
-                              width: 2,
-                            ),
-                            Text(
-                              widget.view,
-                              style: TextStyle(
-                                height: 1.5,
-                                fontFamily: 'EN-REGULAR',
-                                fontSize: context.isPhone ? 12 : 14,
-                                color: Get.isDarkMode
-                                    ? Colors.white70
-                                    : AppColor().black.withOpacity(0.9),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: AppColor().black.withOpacity(0.05),
+                              ),
+                              padding: const EdgeInsets.all(5),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.timelapse_rounded,
+                                    size: 15,
+                                    color: Get.isDarkMode
+                                        ? Colors.white70
+                                        : AppColor().black.withOpacity(0.7),
+                                  ),
+                                  const SizedBox(
+                                    width: 2,
+                                  ),
+                                  Text(
+                                    e.createdAt,
+                                    style: TextStyle(
+                                      height: 1.5,
+                                      fontFamily: 'KH-REGULAR',
+                                      fontSize: context.isPhone ? 12 : 14,
+                                      color: Get.isDarkMode
+                                          ? Colors.white70
+                                          : AppColor().black.withOpacity(0.9),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: AppColor().black.withOpacity(0.05),
+                              ),
+                              padding: const EdgeInsets.all(5),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.remove_red_eye_outlined,
+                                    size: 15,
+                                    color: Get.isDarkMode
+                                        ? Colors.white70
+                                        : AppColor().black.withOpacity(0.7),
+                                  ),
+                                  const SizedBox(
+                                    width: 2,
+                                  ),
+                                  Text(
+                                    "10",
+                                    style: TextStyle(
+                                      height: 1.5,
+                                      fontFamily: 'KH-REGULAR',
+                                      fontSize: context.isPhone ? 12 : 14,
+                                      color: Get.isDarkMode
+                                          ? Colors.white70
+                                          : AppColor().black.withOpacity(0.9),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          e.title,
+                          style: TextStyle(
+                            height: 1.5,
+                            fontFamily: 'KH-REGULAR',
+                            fontSize: context.isPhone ? 16 : 20,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).hoverColor,
+                          ),
                         ),
-                      )
-                    ],
+                        const SizedBox(height: 10),
+                        Html(
+                          key: staticAnchorKey,
+                          data: e.content,
+                          onCssParseError: (css, messages) {
+                            for (var element in messages) {
+                              debugPrint(element.toString());
+                            }
+                            return '';
+                          },
+                          onLinkTap: (url, _, __) {},
+                          style: {
+                            // "img": Style(
+                            //   padding: HtmlPaddings.only(top: 10),
+                            //   alignment: Alignment.center,
+                            //   width: Width(MediaQuery.of(context).size.width),
+                            //   height: Height(MediaQuery.of(context).size.width),
+                            // ),
+                            "body": Style(
+                              textAlign: TextAlign.justify,
+                              color: Theme.of(context).hoverColor,
+                              lineHeight: const LineHeight(1.6),
+                              fontSize: context.isPhone
+                                  ? FontSize.large
+                                  : FontSize.xLarge,
+                              fontFamily: 'KH-REGULAR',
+                            ),
+                          },
+                        ),
+
+                        // ...List.generate(widget.albumImage.length, (index) {
+                        //   return Container(
+                        //     width: double.infinity,
+                        //     margin: const EdgeInsets.only(bottom: 20),
+                        //     decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(15),
+                        //     ),
+                        //     clipBehavior: Clip.antiAlias,
+                        //     child: Image.network(
+                        //       widget.albumImage[index].toString(),
+                        //       fit: BoxFit.cover,
+                        //       loadingBuilder: (context, child, loadingProgress) {
+                        //         if (loadingProgress == null) {
+                        //           return child;
+                        //         }
+                        //         return Center(
+                        //           child: CircularProgressIndicator(
+                        //             strokeWidth: 0.5,
+                        //             color: Theme.of(context).primaryColor,
+                        //           ),
+                        //         );
+                        //       },
+                        //       errorBuilder: (context, error, stackTrace) =>
+                        //           const Icon(Icons.error),
+                        //     ),
+                        //   );
+                        // }),
+
+                        const SizedBox(height: 10),
+                      ],
+                    ),
                   )
                 ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    widget.tile,
-                    style: TextStyle(
-                      height: 1.5,
-                      fontFamily: 'EN-BOLD',
-                      fontSize: context.isPhone ? 20 : 20,
-                      color: Theme.of(context).hoverColor,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    widget.description,
-                    style: TextStyle(
-                      height: 1.5,
-                      fontFamily: 'EN-REGULAR',
-                      fontWeight: FontWeight.w500,
-                      fontSize: context.isPhone ? 16 : 20,
-                      color: Get.isDarkMode ? Colors.white : Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  ...List.generate(widget.albumImage.length, (index) {
-                    return Container(
-                      width: double.infinity,
-                      margin: const EdgeInsets.only(bottom: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: Image.network(
-                        widget.albumImage[index].toString(),
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) {
-                            return child;
-                          }
-                          return Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 0.5,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          );
-                        },
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.error),
-                      ),
-                    );
-                  }),
-                  const SizedBox(height: 10),
-                  Text(
-                    widget.description,
-                    style: TextStyle(
-                      height: 1.5,
-                      fontFamily: 'EN-REGULAR',
-                      fontSize: context.isPhone ? 16 : 20,
-                      color: Get.isDarkMode ? Colors.white : Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              ),
-            )
+              );
+            })
           ],
         ),
       ),
