@@ -26,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    homeController.getBreakingNewsData();
+    // homeController.getBreakingNewsData();
     homeController.getNewsData(selectedCategoryId: selectedCategoryId);
   }
 
