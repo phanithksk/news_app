@@ -29,6 +29,7 @@ customNavigationBar({
             label: 'More',
           ),
         ],
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     currentIndex: currentIndex,
     selectedItemColor: selectedItemColor ?? Theme.of(context).primaryColor,
     unselectedItemColor: Get.isDarkMode ? Colors.white60 : Colors.black54,

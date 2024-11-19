@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:news_app/views/discover/discover_view.dart';
 import 'package:news_app/views/home/home_screen.dart';
 import 'package:news_app/views/home/widgets/notificatiion_viiew.dart';
 import 'package:news_app/widgets/splash_screen.dart';
@@ -13,4 +14,5 @@ final appRoute = [
   GetPage(name: '/notification', page: () => const NotiificatiionView()),
   GetPage(name: '/break_news', page: () => const AllBreakingNewsView()),
   GetPage(name: '/all_publisher', page: () => const AllpublisherIteamsView()),
+  GetPage(name: '/descover', page: () => const DescoverView()),
 ];

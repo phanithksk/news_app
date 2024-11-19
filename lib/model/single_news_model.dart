@@ -1,7 +1,7 @@
 class SingleNewsModel {
   int? code;
   String? message;
-  dynamic data;
+  List<Data>? data;
 
   SingleNewsModel({this.code, this.message, this.data});
 
@@ -37,6 +37,7 @@ class Data {
   int? orderby;
   String? thumbnail;
   String? userProfile;
+  List<Albums>? albums;
   String? content;
 
   Data(
@@ -49,6 +50,7 @@ class Data {
       this.orderby,
       this.thumbnail,
       this.userProfile,
+      this.albums,
       this.content});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -61,6 +63,12 @@ class Data {
     orderby = json['orderby'];
     thumbnail = json['thumbnail'];
     userProfile = json['user_profile'];
+    if (json['albums'] != null) {
+      albums = <Albums>[];
+      json['albums'].forEach((v) {
+        albums!.add(Albums.fromJson(v));
+      });
+    }
     content = json['content'];
   }
 
@@ -75,7 +83,32 @@ class Data {
     data['orderby'] = orderby;
     data['thumbnail'] = thumbnail;
     data['user_profile'] = userProfile;
+    if (albums != null) {
+      data['albums'] = albums!.map((v) => v.toJson()).toList();
+    }
     data['content'] = content;
+    return data;
+  }
+}
+
+class Albums {
+  int? albumsId;
+  String? name;
+  int? primary;
+
+  Albums({this.albumsId, this.name, this.primary});
+
+  Albums.fromJson(Map<String, dynamic> json) {
+    albumsId = json['albums_id'];
+    name = json['name'];
+    primary = json['primary'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['albums_id'] = albumsId;
+    data['name'] = name;
+    data['primary'] = primary;
     return data;
   }
 }

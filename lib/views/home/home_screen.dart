@@ -26,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    // homeController.getBreakingNewsData();
+    homeController.getBreakingNewsData();
     homeController.getNewsData(selectedCategoryId: selectedCategoryId);
   }
 
@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         surfaceTintColor: Colors.transparent,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: customTextFieldSearch(
+          readOnly: true,
           isBorder: true,
           controller: TextEditingController(),
           hintText: 'Search News',
@@ -105,82 +106,157 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           ],
                         ),
                       ),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          enlargeCenterPage: true,
-                          autoPlayInterval: const Duration(seconds: 10),
-                          autoPlayAnimationDuration: const Duration(seconds: 2),
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              // currentIndex = index;
-                            });
-                          },
-                        ),
-                        items: [
-                          ...homeController.breakingNewsData.value.data.map(
-                            (e) => GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => NewsDetailView(
-                                      id: e.id,
-                                      thumbnail: e.thumbnail,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                clipBehavior: Clip.antiAlias,
-                                child: Image.network(
-                                  e.thumbnail,
-                                  fit: BoxFit.cover,
-                                  loadingBuilder:
-                                      (context, child, loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    }
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 0.5,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                    );
-                                  },
-                                  errorBuilder: (context, exception, error) {
-                                    return Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.error,
-                                          color: Theme.of(context).hoverColor,
-                                          size: 35,
-                                        ),
-                                        const SizedBox(height: 10),
-                                        Text(
-                                          Get.locale == const Locale('km', 'KM')
-                                              ? 'មិនមានការតភ្ជាប់អ៊ីនធឺណិត!'
-                                              : 'No Internet Connection!',
-                                          style: TextStyle(
-                                            fontFamily: 'KH-REGULAR',
-                                            fontSize: context.isPhone ? 13 : 16,
-                                            color: Theme.of(context).hoverColor,
+                      homeController.breakingNewsData.value.data != null &&
+                              homeController.breakingNewsData.value.data != []
+                          ? CarouselSlider(
+                              options: CarouselOptions(
+                                autoPlay: true,
+                                enlargeCenterPage: true,
+                                autoPlayInterval: const Duration(seconds: 10),
+                                autoPlayAnimationDuration:
+                                    const Duration(seconds: 2),
+                                onPageChanged: (index, reason) {
+                                  setState(() {
+                                    // currentIndex = index;
+                                  });
+                                },
+                              ),
+                              items: [
+                                ...homeController.breakingNewsData.value.data
+                                    .map(
+                                  (e) => GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => NewsDetailView(
+                                            id: e.id,
+                                            thumbnail: e.thumbnail,
                                           ),
                                         ),
-                                      ],
-                                    );
-                                  },
+                                      );
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      clipBehavior: Clip.antiAlias,
+                                      child: Image.network(
+                                        e.thumbnail,
+                                        fit: BoxFit.cover,
+                                        loadingBuilder:
+                                            (context, child, loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          }
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 0.5,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            ),
+                                          );
+                                        },
+                                        errorBuilder:
+                                            (context, exception, error) {
+                                          return Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.error,
+                                                color: Theme.of(context)
+                                                    .hoverColor,
+                                                size: 35,
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                Get.locale ==
+                                                        const Locale('km', 'KM')
+                                                    ? 'មិនមានការតភ្ជាប់អ៊ីនធឺណិត!'
+                                                    : 'No Internet Connection!',
+                                                style: TextStyle(
+                                                  fontFamily: 'KH-REGULAR',
+                                                  fontSize:
+                                                      context.isPhone ? 13 : 16,
+                                                  color: Theme.of(context)
+                                                      .hoverColor,
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
                                 ),
+                              ],
+                            )
+                          : CarouselSlider(
+                              options: CarouselOptions(
+                                autoPlay: true,
+                                enlargeCenterPage: true,
+                                autoPlayInterval: const Duration(seconds: 10),
+                                autoPlayAnimationDuration:
+                                    const Duration(seconds: 2),
+                                onPageChanged: (index, reason) {
+                                  setState(() {
+                                    // currentIndex = index;
+                                  });
+                                },
                               ),
+                              items: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  clipBehavior: Clip.antiAlias,
+                                  child: Image.network(
+                                    'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg',
+                                    fit: BoxFit.cover,
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      }
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 0.5,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      );
+                                    },
+                                    errorBuilder: (context, exception, error) {
+                                      return Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.error,
+                                            color: Theme.of(context).hoverColor,
+                                            size: 35,
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            Get.locale ==
+                                                    const Locale('km', 'KM')
+                                                ? 'មិនមានការតភ្ជាប់អ៊ីនធឺណិត!'
+                                                : 'No Internet Connection!',
+                                            style: TextStyle(
+                                              fontFamily: 'KH-REGULAR',
+                                              fontSize:
+                                                  context.isPhone ? 13 : 16,
+                                              color:
+                                                  Theme.of(context).hoverColor,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 15),
                         child: TabBar(
@@ -248,7 +324,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   ),
                 ],
               )
-            : Container();
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "មិនមានទិន្នន័យ",
+                    style: TextStyle(
+                      height: 1.5,
+                      overflow: TextOverflow.ellipsis,
+                      fontFamily: 'KH-REGULAR',
+                      fontSize: context.isPhone ? 14 : 18,
+                      color: Get.isDarkMode
+                          ? Colors.white60
+                          : AppColor().black.withOpacity(0.6),
+                    ),
+                  ),
+                ],
+              );
       }),
     );
   }

@@ -86,8 +86,10 @@ class _DescoverViewState extends State<DescoverView> {
                       Expanded(
                         child: customTextFieldSearch(
                           isBorder: true,
-                          onChanged: (String) {},
-                          controller: TextEditingController(),
+                          onChanged: (value) {
+                            homeController.getSearchData(query: value);
+                          },
+                          controller: homeController.txtSearchNews,
                           hintText: 'Search News',
                           context: context,
                         ),
