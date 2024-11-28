@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:news_app/core/services/themes_services.dart';
 import 'package:news_app/controller/theme_controller.dart';
 
-
 class DarkModeView extends GetView<DarkModeController> {
   @override
   final controller = Get.put(DarkModeController());

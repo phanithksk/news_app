@@ -35,7 +35,7 @@ class AllNewsView extends StatelessWidget {
                           title: e.title,
                           date: e.createdAt,
                           image: e.thumbnail,
-                          profile: e.thumbnail,
+                          profile: e.userProfile,
                           profileName: e.user,
                           views: " 10",
                         )

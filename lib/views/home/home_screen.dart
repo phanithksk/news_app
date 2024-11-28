@@ -170,19 +170,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                 size: 35,
                                               ),
                                               const SizedBox(height: 10),
-                                              Text(
-                                                Get.locale ==
-                                                        const Locale('km', 'KM')
-                                                    ? 'មិនមានការតភ្ជាប់អ៊ីនធឺណិត!'
-                                                    : 'No Internet Connection!',
-                                                style: TextStyle(
-                                                  fontFamily: 'KH-REGULAR',
-                                                  fontSize:
-                                                      context.isPhone ? 13 : 16,
-                                                  color: Theme.of(context)
-                                                      .hoverColor,
-                                                ),
-                                              ),
                                             ],
                                           );
                                         },

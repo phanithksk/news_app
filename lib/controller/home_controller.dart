@@ -15,6 +15,11 @@ class HomeController extends GetxController {
 
   TextEditingController txtSearchNews = TextEditingController();
 
+  void clearAllData() {
+    saveNewsData.value.data?.clear();
+    update();
+  }
+
 // News with category
   Rx<CategoryModel> newsDataModel = CategoryModel().obs;
   Future<CategoryModel?> getNewsData({required int selectedCategoryId}) async {

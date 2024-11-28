@@ -112,6 +112,19 @@ class CustomCardNews extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
+                           "កាលបរិច្ឆេទ : ",
+                            maxLines: 1,
+                            style: TextStyle(
+                              height: 1.5,
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: 'KH-REGULAR',
+                              fontSize: context.isPhone ? 12 : 18,
+                              color: Get.isDarkMode
+                                  ? Colors.white70
+                                  : AppColor().black.withOpacity(0.5),
+                            ),
+                          ),
+                          Text(
                             date,
                             maxLines: 1,
                             style: TextStyle(
@@ -127,39 +140,39 @@ class CustomCardNews extends StatelessWidget {
                           const SizedBox(
                             width: 20,
                           ),
-                          views != null
-                              ? Expanded(
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.remove_red_eye_outlined,
-                                        size: 18,
-                                        color: Get.isDarkMode
-                                            ? Colors.white70
-                                            : AppColor().black.withOpacity(0.6),
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        views ?? "",
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                          height: 1.5,
-                                          overflow: TextOverflow.ellipsis,
-                                          fontFamily: 'KH-REGULAR',
-                                          fontSize: context.isPhone ? 13 : 18,
-                                          color: Get.isDarkMode
-                                              ? Colors.white70
-                                              : AppColor()
-                                                  .black
-                                                  .withOpacity(0.5),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : SizedBox.shrink()
+                          // views != null
+                          //     ? Expanded(
+                          //         child: Row(
+                          //           children: [
+                          //             Icon(
+                          //               Icons.remove_red_eye_outlined,
+                          //               size: 18,
+                          //               color: Get.isDarkMode
+                          //                   ? Colors.white70
+                          //                   : AppColor().black.withOpacity(0.6),
+                          //             ),
+                          //             const SizedBox(
+                          //               width: 5,
+                          //             ),
+                          //             // Text(
+                          //             //   views ?? "",
+                          //             //   maxLines: 1,
+                          //             //   style: TextStyle(
+                          //             //     height: 1.5,
+                          //             //     overflow: TextOverflow.ellipsis,
+                          //             //     fontFamily: 'KH-REGULAR',
+                          //             //     fontSize: context.isPhone ? 13 : 18,
+                          //             //     color: Get.isDarkMode
+                          //             //         ? Colors.white70
+                          //             //         : AppColor()
+                          //             //             .black
+                          //             //             .withOpacity(0.5),
+                          //             //   ),
+                          //             // ),
+                          //           ],
+                          //         ),
+                          //       )
+                          //     : SizedBox.shrink()
                         ],
                       ),
                     )

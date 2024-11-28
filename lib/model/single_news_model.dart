@@ -29,6 +29,7 @@ class SingleNewsModel {
 
 class Data {
   int? id;
+  int? bookmark;
   int? userId;
   String? username;
   String? title;
@@ -42,6 +43,7 @@ class Data {
 
   Data(
       {this.id,
+      this.bookmark,
       this.userId,
       this.username,
       this.title,
@@ -55,6 +57,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    bookmark = json['bookmark'];
     userId = json['user_id'];
     username = json['username'];
     title = json['title'];
@@ -75,6 +78,7 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['bookmark'] = bookmark;
     data['user_id'] = userId;
     data['username'] = username;
     data['title'] = title;

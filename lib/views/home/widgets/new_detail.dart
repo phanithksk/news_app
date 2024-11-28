@@ -19,7 +19,7 @@ class NewsDetailView extends StatefulWidget {
   });
 
   @override
-  _NewsDetailViewState createState() => _NewsDetailViewState();
+  State<NewsDetailView> createState() => _NewsDetailViewState();
 }
 
 class _NewsDetailViewState extends State<NewsDetailView> {
@@ -31,6 +31,22 @@ class _NewsDetailViewState extends State<NewsDetailView> {
   void initState() {
     super.initState();
     controller.getSingleNewsData(newID: widget.id);
+    if (controller.saveNewsData.value.data != null &&
+        controller.saveNewsData.value.data!.isNotEmpty) {
+      bool foundValidId = false;
+      for (var item in controller.saveNewsData.value.data!) {
+        debugPrint('Item ID: ${item.id}');
+        if (item.id != null) {
+          foundValidId = true;
+          break;
+        }
+      }
+
+      controller.isSave.value = foundValidId;
+    } else {
+      debugPrint('No data available.');
+      controller.isSave.value = false;
+    }
   }
 
   @override
@@ -102,19 +118,24 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                       () => Row(
                         children: [
                           GestureDetector(
-                            onTap: () {
-                              controller.postSaveNews(newsID: widget.id);
+                            onTap: () async {
+                              await controller.postSaveNews(newsID: widget.id);
+
                               if (controller.postSaveNewsData.value.data ==
                                   'News saved successfully') {
-                                controller.isSave.value = true;
+                                setState(() {
+                                  controller.isSave.value = true;
+                                });
                               } else {
-                                controller.isSave.value = false;
+                                setState(() {
+                                  controller.isSave.value = false;
+                                });
                               }
                             },
                             child: CircleAvatar(
                               backgroundColor: Colors.black.withOpacity(0.5),
                               child: Icon(
-                                controller.isSave.value == true
+                                controller.isSave.value
                                     ? Icons.bookmark
                                     : Icons.bookmark_border_outlined,
                                 color: Colors.white,
@@ -245,44 +266,6 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color:
-                                            AppColor().black.withOpacity(0.05),
-                                      ),
-                                      padding: const EdgeInsets.all(5),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.remove_red_eye_outlined,
-                                            size: 15,
-                                            color: Get.isDarkMode
-                                                ? Colors.white70
-                                                : AppColor()
-                                                    .black
-                                                    .withOpacity(0.7),
-                                          ),
-                                          const SizedBox(
-                                            width: 2,
-                                          ),
-                                          Text(
-                                            "10",
-                                            style: TextStyle(
-                                              height: 1.5,
-                                              fontFamily: 'KH-REGULAR',
-                                              fontSize:
-                                                  context.isPhone ? 12 : 14,
-                                              color: Get.isDarkMode
-                                                  ? Colors.white70
-                                                  : AppColor()
-                                                      .black
-                                                      .withOpacity(0.9),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
                                   ],
                                 )
                               ],
